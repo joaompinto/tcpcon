@@ -1,6 +1,7 @@
-def main():
-    print("Hello")
-
+from .args import CommandArgs
 
 if __name__ == "__main__":
-    main()
+    cmd = CommandArgs()
+    cmd.parse()
+    cmd.validate()
+    cmd.run()
