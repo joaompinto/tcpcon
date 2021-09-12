@@ -1,6 +1,11 @@
 from .args import CommandArgs
 
-if __name__ == "__main__":
+
+def main():
     cmd = CommandArgs()
     cmd.parse()
     cmd.run()
+
+
+if __name__ == "__main__":
+    main()
