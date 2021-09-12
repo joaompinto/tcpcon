@@ -1,6 +1,7 @@
 import threading
 import sys
 from getch import getch
+from .terminate import TerminateCause
 
 CONTROL_C = b"\x03"
 
@@ -23,7 +24,7 @@ class KeyboardReadThread(threading.Thread):
                 break
 
             self.sendall(read_key)
-        self.terminate_queue.put(None)
+        self.terminate_queue.put(TerminateCause.User)
 
     def sendall(self, content):
         sys.stdout.buffer.write(content)
@@ -33,4 +34,4 @@ class KeyboardReadThread(threading.Thread):
             self.net_socket.sendall(content)
         except Exception as ex:
             print(ex, file=sys.stderr)
-            self.terminate_queue.put(None)
+            self.terminate_queue.put(TerminateCause.Network)

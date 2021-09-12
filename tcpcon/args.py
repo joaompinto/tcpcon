@@ -1,5 +1,5 @@
 import argparse
-from .netcat import NetCatClient
+from .tcp import TcpClient
 
 
 class CommandArgs:
@@ -20,8 +20,8 @@ class CommandArgs:
         if self.args.hostname:
             if self.args.v:
                 print(f"* Connecting to {self.args.hostname}, port {self.args.port}")
-            netcat = NetCatClient(self.args.hostname, self.args.port)
-            netcat.connect()
+            tcp_client = TcpClient(self.args.hostname, self.args.port)
+            tcp_client.connect()
             if self.args.v:
                 print("* Connected")
-            netcat.interactive_shell()
+            tcp_client.interactive_shell()

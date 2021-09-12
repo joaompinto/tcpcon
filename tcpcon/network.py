@@ -1,6 +1,6 @@
 import threading
 import sys
-import socket
+from .terminate import TerminateCause
 
 BUFFER_SIZE = 4096
 
@@ -13,12 +13,9 @@ class NetworkReadThread(threading.Thread):
 
     def run(self):
         while True:
-            try:
-                data = self.net_socket.recv(BUFFER_SIZE)
-            except socket.timeout:
-                data = ""
+            data = self.net_socket.recv(BUFFER_SIZE)
             if len(data) == 0:  # Connection was closed
                 break
             sys.stdout.buffer.write(data)
             sys.stdout.flush()
-        self.terminate_queue.put(None)
+        self.terminate_queue.put(TerminateCause.Closed)
