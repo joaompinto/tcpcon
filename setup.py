@@ -5,7 +5,7 @@ from setuptools import setup
 SCRIPT_DIR = Path(__file__).parent
 
 
-scm_version_options = {"write_to": "pynetcat/version.py"}
+scm_version_options = {"write_to": "tcpcon/version.py"}
 
 
 def setup_package():

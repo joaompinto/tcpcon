@@ -6,7 +6,7 @@
         "build": true,
         "dist": true,
         ".pytest_cache": true,
-        "pynetcat/version.py": true
+        "tcpcon/version.py": true
     },
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
