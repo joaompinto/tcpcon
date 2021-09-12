@@ -30,7 +30,7 @@ class TcpClient:
         self.create_thread(NetworkReadThread)
         self.create_thread(KeyboardReadThread)
 
-        # Pause the main thread wating for a network or keyboard terminate event
+        # Pause the main thread waiting for a network or keyboard terminate reason
         terminate_reason = self.terminate_queue.get()
 
         if terminate_reason == TerminateCause.User:
