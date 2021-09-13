@@ -1,4 +1,5 @@
 import argparse
+import sys
 from .tcp import TcpClient
 
 
@@ -17,6 +18,8 @@ class CommandArgs:
         self.args = self.parser.parse_args()
 
     def run(self):
+        if sys.stdin.isatty():
+            print("tty")
         if self.args.hostname:
             if self.args.v:
                 print(f"* Connecting to {self.args.hostname}, port {self.args.port}")

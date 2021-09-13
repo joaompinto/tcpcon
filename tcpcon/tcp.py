@@ -24,11 +24,22 @@ class TcpClient:
         user_thread.daemon = True
         user_thread.start()
 
+    def send_from_stdin(self):
+        while True:
+            data = sys.stdin.buffer.read()
+            if len(data) == 0:
+                break
+            self.net_socket.sendall(data)
+
     def interactive_shell(self):
 
-        # Create network read and keyboard read threads
+        # Create network read
+        if sys.stdin.isatty():
+            self.create_thread(KeyboardReadThread)
+        else:
+            self.send_from_stdin()
+
         self.create_thread(NetworkReadThread)
-        self.create_thread(KeyboardReadThread)
 
         # Pause the main thread waiting for a network or keyboard terminate reason
         terminate_reason = self.terminate_queue.get()
@@ -36,4 +47,4 @@ class TcpClient:
         if terminate_reason == TerminateCause.User:
             print("\n*** Terminated by CTRL+C ***", file=sys.stderr)
         if terminate_reason == TerminateCause.Closed:
-            print("* Remote host closed the connection", file=sys.stderr)
+            print("\n* Remote host closed the connection", file=sys.stderr)

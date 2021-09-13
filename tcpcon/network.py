@@ -13,7 +13,10 @@ class NetworkReadThread(threading.Thread):
 
     def run(self):
         while True:
-            data = self.net_socket.recv(BUFFER_SIZE)
+            try:
+                data = self.net_socket.recv(BUFFER_SIZE)
+            except ConnectionError:  # Connection was interrupted
+                break
             if len(data) == 0:  # Connection was closed
                 break
             sys.stdout.buffer.write(data)

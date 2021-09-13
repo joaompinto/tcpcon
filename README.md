@@ -18,6 +18,13 @@ pip instal tcpcon
 ```
 
 ## How to use
+Interactive mode:
 ```sh
 tcpcon www.sapo.pt 80
+```
+
+Batch mode using stdin:
+```sh
+ echo -e "HEAD / HTTP/1.0\r\nHost: www.google.com\r\n" \
+    | tcpcon www.google.com 80 -v
 ```
